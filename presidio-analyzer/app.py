@@ -4,6 +4,7 @@ import json
 import logging
 import os
 from logging.config import fileConfig
+import numpy as np
 from pathlib import Path
 from typing import Tuple
 
@@ -79,7 +80,9 @@ class Server:
                 return Response(
                     json.dumps(
                         recognizer_result_list,
-                        default=lambda o: o.to_dict(),
+                        #default=lambda o: o.to_dict(),
+                        # BUGFIX: TypeError: Object of type 'numpy.float32' is not JSON serializable
+                        default=lambda o: float(o) if isinstance(o, np.float32) else o.to_dict(),
                         sort_keys=True,
                     ),
                     content_type="application/json",
