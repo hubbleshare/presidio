@@ -1,7 +1,7 @@
 FROM python:3.9-slim
 
 ARG NAME
-ARG NLP_CONF_FILE=presidio_analyzer/conf/de_spacy_nlp.yaml
+ARG NLP_CONF_FILE=presidio_analyzer/conf/de_transformers_nlp.yaml
 ARG ANALYZER_CONF_FILE=presidio_analyzer/conf/de_analyzer.yaml
 ARG RECOGNIZER_REGISTRY_CONF_FILE=presidio_analyzer/conf/de_recognizers.yaml
 ENV PIP_NO_CACHE_DIR=1
@@ -23,7 +23,7 @@ RUN apt-get update \
 COPY ./pyproject.toml /usr/bin/${NAME}/
 COPY ./README.md /usr/bin/${NAME}/
 
-RUN pip install poetry && poetry install --no-root --only=main -E server
+RUN pip install poetry && poetry install --no-root --only=main -E server -E transformers
 # install nlp models specified in NLP_CONF_FILE
 COPY ./install_nlp_models.py /usr/bin/${NAME}/
 
