@@ -1,0 +1,42 @@
+nlp_engine_name: transformers
+models:
+  - 
+    lang_code: de
+    model_name:
+      spacy: de_core_news_sm
+      transformers: FacebookAI/xlm-roberta-large-finetuned-conll03-german
+
+ner_model_configuration:
+  labels_to_ignore:
+  - O
+  aggregation_strategy: simple
+  stride: 16
+  alignment_mode: expand
+  model_to_presidio_entity_mapping:
+    PER: PERSON
+    PERSON: PERSON
+    LOC: LOCATION
+    LOCATION: LOCATION
+    GPE: LOCATION
+    ORG: ORGANIZATION
+    ORGANIZATION: ORGANIZATION
+    NORP: NRP
+    AGE: AGE
+    ID: ID
+    EMAIL: EMAIL
+    PATIENT: PERSON
+    STAFF: PERSON
+    HOSP: ORGANIZATION
+    PATORG: ORGANIZATION
+    DATE: DATE_TIME
+    TIME: DATE_TIME
+    PHONE: PHONE_NUMBER
+    HCW: PERSON
+    HOSPITAL: ORGANIZATION
+    FACILITY: LOCATION
+
+  low_confidence_score_multiplier: 0.4
+  low_score_entity_names:
+  - PERSON
+
+  
